@@ -1,0 +1,111 @@
+#include "table1.h"
+#include "list1.h"
+#include "node1.h"
+#include <cassert>
+#include "iostream"
+namespace JONTRAN_1{
+template<class Item>
+const typename table<Item>::size_type table<Item>::DEFAULT_CAPACITY;
+	template<class Item>
+	table<Item>::table(size_type initial_capacity){
+		data = new list<Item>[initial_capacity];
+		capacity = initial_capacity;
+		inserted = 0;
+ 	}
+	template<class Item>
+	table<Item>::table(const table<Item>& table1){
+		capacity = table1.capacity;
+		data = new list<Item>[capacity];
+		inserted = table1.inserted;
+ 		value_type entry = 0;
+ 		value_type key = 0;
+ 		size_type index = 0;
+ 		while(index < capacity){
+ 			for(size_type j = 0; j < table1.data[index].size(); j++){
+ 				entry = table1.data[index].list_search_data(table1.data[index],j+1);
+ 				key = table1.data[index].list_search_key(table1.data[index],j+1);
+ 				data[hash(key)].insert(entry,key);
+ 			}
+ 			++index;
+ 		}
+	}
+	template<class Item>
+	table<Item>::~table<Item>(){
+		delete [] data;
+	}
+ 
+	template<class Item>
+	void table<Item>::reserve(const size_type addend_capacity){
+ 		list<Item> *new_data;
+ 		value_type entry = 0;
+ 		value_type key = 0;
+ 		size_type index = 0;
+ 		size_type original_capacity = capacity;
+ 		capacity+=addend_capacity;
+   		new_data = new list<Item>[capacity];
+ 		while(index < original_capacity){
+ 			for(size_type j = 0; j < data[index].size(); j++){
+ 				entry = data[index].list_search_data(data[index],j+1);
+ 				key = data[index].list_search_key(data[index],j+1);
+ 				new_data[hash(key)].insert(entry,key);
+ 			}
+ 			++index;
+ 		}
+  		delete[]data;
+ 		data = new_data;
+ 	}
+	template<class Item>
+	typename table<Item>::size_type table<Item>::hash(int key) const{
+		return((key+31)*17%capacity);
+	}
+	template<class Item>
+	void table<Item>::put(const int& key, const value_type& entry){
+		if(data[hash(key)].is_key_there(key)==true){
+			std::cout<<"Key already exist in hash table..."<<std::endl;
+			return;
+		}
+			if(data[hash(key)].size()>=5){
+				reserve(11);
+			}
+  		data[hash(key)].insert(entry,key);
+		++inserted;
+ 	}
+	template<class Item>
+	bool table<Item>::get(const int& key, value_type& entry){
+		if(data[hash(key)].is_key_there(key)==true){
+			entry = data[hash(key)].list_get_data(key);
+			return true;
+		}
+		return false;
+	}
+	template<class Item>
+	bool table<Item>::remove(int key){
+		if(data[hash(key)].remove_key(key)==true){
+ 			--inserted;
+ 			return true;
+		}
+		std::cout<<"Key doesn't exist..."<<std::endl;
+ 		return false;
+	}
+
+	template<class Item>
+	void table<Item>::operator = (const table<Item>& table1){
+		capacity = table1.capacity;
+		data = new list<Item>[capacity];
+		inserted = table1.inserted;
+ 		value_type entry = 0;
+ 		value_type key = 0;
+ 		size_type index = 0;
+ 		while(index < capacity){
+ 			for(size_type j = 0; j < table1.data[index].size(); j++){
+ 				entry = table1.data[index].list_search_data(table1.data[index],j+1);
+ 				key = table1.data[index].list_search_key(table1.data[index],j+1);
+ 				data[hash(key)].insert(entry,key);
+ 			}
+ 			++index;
+ 		}
+	}
+}
+
+
+

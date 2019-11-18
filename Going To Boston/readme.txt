@@ -1,0 +1,1 @@
+Also known as Going to Town, Newmarket, or Yankee Grab , the object of this little dice game is to win the most number of rounds. Click here for rules : https://www.dicegamedepot.com/going-to-boston-dice-game-rules/

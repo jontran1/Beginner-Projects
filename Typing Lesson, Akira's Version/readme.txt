@@ -1,0 +1,1 @@
+The purpose of this assignment is to implement a simple typing lesson game. The computer will generate a random string of 5 characters in length and you need to reproduce it within 10 seconds. You will lose points significantly if you fail to produce the same string within the set time interval.

@@ -1,0 +1,1 @@
+A Simple Paragraph Justifier. Type in any sentence then enter the width. 
