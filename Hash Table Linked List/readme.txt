@@ -1,0 +1,1 @@
+HashTable combined with linked lists at each index to solve collision.
